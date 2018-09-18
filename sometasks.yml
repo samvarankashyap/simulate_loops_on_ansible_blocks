@@ -1,0 +1,17 @@
+---
+- name:  "Get Running Builds"
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: setfact for build number
+    set_fact:
+      tmpbuildnumber: 0
+      buildno: 10
+  - name: "register count"
+    shell: python -c "print [x for x in range( 0, {{ buildno }} )]"
+    register: count
+  - include: test.yaml
+    with_items: "{{ count.stdout }}"
+  - debug:
+      msg: "final {{ buildno }}"

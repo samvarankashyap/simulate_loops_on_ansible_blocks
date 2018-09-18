@@ -1,0 +1,11 @@
+---
+- name: "Get running cvp-trigger Builds"
+  block:
+    - name: debug
+      debug:
+        msg: "{{ buildno }}"
+    - name: decrement
+      set_fact:
+        buildno: "{{ buildno | decrement }}"
+    - debug:
+        msg: "RUNNING: {{ buildno }}"
